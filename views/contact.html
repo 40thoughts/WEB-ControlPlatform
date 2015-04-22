@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="container">
+    {% if name %}
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>Well done!</strong> thank you for your <b>{{name}}</b> sends
+    </div>
+    {% endif %}
+
+    <form role="form" action="/contact" method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+            <label for="msg">Message</label>
+            <textarea name="msg" class="form-control" id="msg" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</section>
+{% endblock %}

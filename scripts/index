@@ -1,0 +1,48 @@
+#!/bin/bash
+
+##time=$(uptime | cut -d ' ' -f 2)
+##uptime=$(uptime | grep -ohe 'up .*' | sed 's/,//g' | cut -d ' ' -f 2-5)
+##uptime=$(uptime)
+upDays=$(uptime | rev | cut -d ',' -f 9 | cut -d ' ' -f 2 | rev)
+upHours=$(uptime | rev | cut -d ',' -f 8 | cut -d ' ' -f 1 | rev)
+memUsd=$(awk '/^Mem/ {printf("%u", $3);}' <(free -m))
+memTot=$(awk '/^Mem/ {printf("%u", $2);}' <(free -m))
+memProc=$(awk '/^\-\/\+/ {printf("%u", $3);}' <(free -m))
+memFree=$(( $memProc * 100 / $memTot ))
+memBufCache=$(( ($memUsd - $memProc) * 100 / $memTot ))
+
+if [ "$upHours" = "min" ]
+then
+   upHours="$(uptime | rev | cut -d ',' -f 8 | cut -d ' ' -f 2 | rev ) min"
+fi
+if [ -z "$upDays" ]
+then
+cat << _EOF_ > ./views/include/index/uptime.html
+$upHours
+_EOF_
+else
+    if [ "$upDays" = "1" ]
+    then
+cat << _EOF_ > ./views/include/index/uptime.html
+$upDays day, $upHours
+_EOF_
+    else
+cat << _EOF_ > ./views/include/index/uptime.html
+$upDays days, $upHours
+_EOF_
+    fi
+fi
+
+cat << _EOF_ > ./views/include/index/memory.html
+Memory usage : <strong>$memProc / ${memTot}MB</strong>
+<div class="progress">
+<div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: $memFree%;">
+$memFree%
+</div>
+<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: $memBufCache%">
+$memBufCache%
+</div>
+</div>
+_EOF_
+
+exit 0

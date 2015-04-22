@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Control - 
+{% endblock %}
+
+{% block header %}
+  <h1>Control Platform <small>This web page gives access to some basic oftenly needed commands.</small></h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {% include './include/control/power.html' %}
+            {% include './include/control/audio.html' %}
+            {% include './include/control/screen.html' %}
+            {% include './include/control/wifi.html' %}
+        </div>
+        <div class="col-md-9">
+            {% include './include/control/terminal.html' %}
+        </div>
+    </div>
+{% endblock %}

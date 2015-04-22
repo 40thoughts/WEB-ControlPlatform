@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  System Informations -
+{% endblock %}
+
+{% block header %}
+  <h1>System Informations <small>for {{ hostname }}</small></h1>
+{% endblock %}
+
+{% block params %}
+  onload="serverClock()"
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <h3>General :</h3>
+        <p id="clock">
+            <!-- JS script -->
+        </p>
+        <p>
+            Uptime : <strong>{% include './include/index/uptime.html' %}</strong>
+        </p>
+        <p>
+            Connected Users : <strong>{{ nbUsers }}</strong>
+        </p>
+        <p>
+            {% include './include/index/memory.html' %}
+        </p>
+    </div>
+    <div class="col-md-9">
+        <h3>Details :</h3>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionOne">
+                            Filesystem space :
+                        </a>
+                    </h4>
+                </div>
+                <div id="accordionOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <pre>{{ space }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionTwo">
+                            Block devices :
+                        </a>
+                    </h4>
+                </div>
+                <div id="accordionTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <pre>{{ devices }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionThree">
+                            Interfaces :
+                        </a>
+                    </h4>
+                </div>
+                <div id="accordionThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <pre>{{ interfaces }}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#accordionFour">
+                            Open Ports :
+                        </a>
+                    </h4>
+                </div>
+                <div id="accordionFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <pre>{{ ports}}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="button" onmousedown="mousedownfunc('counter')" value="clickme" onmouseup="mouseupfunc('counter')" /><br/>
+<div id="counter">1</div>
+
+
+<script>
+var h = {{ h }};
+var m = {{ m }};
+var s = {{ s }};
+
+function serverClock() {
+    s = s.toString();
+    m = m.toString();
+    s = checkTime(s);
+    m = checkTime(m);
+    document.getElementById('clock').innerHTML = "Actual Time : <strong>"+h+":"+m+":"+s+"</strong>";
+    s=++s;
+    if (s > 59) {s ="0"; m = ++m};
+    if (m > 59) {m ="0"; h = ++h};
+    if (h > 23) {h ="0"};
+    var t = setTimeout(function(){serverClock()},1000);
+}
+
+function checkTime(i) {
+    if (i.length < 2) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+
+
+var intervalId; // keep the ret val from setTimeout()
+function mousedownfunc(divid) {
+    intervalId = setInterval(runme, 500, divid);
+}
+
+function mouseupfunc() {
+    clearInterval(intervalId);
+}
+
+function runme(divid) {
+    document.getElementById(divid).innerHTML = parseFloat(document.getElementById(divid).innerHTML) + 1;
+}
+</script>
+
+{% endblock %}
