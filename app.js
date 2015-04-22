@@ -3,11 +3,12 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var swig = require('swig');
 
-var routes = require('./routes/index');
-var control = require('./routes/control');
+var indexPage = require('./routes/index');
+var controlPage = require('./routes/control');
 
 var app = express();
 
@@ -23,10 +24,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'CPl4tf0rm', // "CPl4tf0rm" -> Secret key : use whatever yout wan't
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/control', control);
+app.use('/', indexPage);
+app.use('/control', controlPage);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

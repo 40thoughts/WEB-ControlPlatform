@@ -37,7 +37,7 @@ router.post('/', function(req, res) {
         console.log("User on \x1b[31m" +ip+ "\x1b[0m trying to connect without username.");
     }
     else if (userStatus == "nopass") {
-        console.log("User on \x1b[31m" +ip+ "\x1b[0m trying to connect without password.");
+        console.log(user+ " on \x1b[31m" +ip+ "\x1b[0m trying to connect without password.");
     }
     res.render('control', {
         userStatus: userStatus,

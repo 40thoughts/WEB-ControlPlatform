@@ -12,6 +12,7 @@
     "express": "~4.12.2",
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0",
-    "swig": "1.x"
+    "swig": "1.x",
+    "express-session": "~1.11.1"
   }
 }

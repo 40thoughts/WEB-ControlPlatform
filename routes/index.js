@@ -41,7 +41,9 @@ router.get('/', function(req, res, next) {
         ports=stdout;
     });
     my_exec('./scripts/index', function (stdout) {
-        res.render('index', { h: h,m: m,s: s, hostname: hostname, space: space, nbUsers: nbUsers, ports: ports, interfaces: interfaces, devices: devices });
+        setTimeout(function() {
+            res.render('index', { h: h,m: m,s: s, hostname: hostname, space: space, nbUsers: nbUsers, ports: ports, interfaces: interfaces, devices: devices });
+        }, 200);
     });
 });
 
