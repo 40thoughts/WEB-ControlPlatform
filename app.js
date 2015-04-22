@@ -8,23 +8,16 @@ var swig = require('swig');
 
 var routes = require('./routes/index');
 var control = require('./routes/control');
-var users = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-// utilisation du moteur de swig pour les .html
 app.engine('html', swig.renderFile); 
-// utiliser le moteur de template pour les .html
 app.set('view engine', 'html'); 
-// dossier des vues
 app.set('views', path.join(__dirname, 'views')); 
 
-// view cache
-app.set('view cache', false); // désactivation du cache express
-swig.setDefaults({ cache: false }); // désactivation du cache swig
+app.set('view cache', false); // "false" to disable cache during developpement (express)
+swig.setDefaults({ cache: false }); // "false" to disable cache during developpement (swig)
 
-// uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -34,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/control', control);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

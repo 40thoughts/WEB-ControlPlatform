@@ -19,8 +19,7 @@ function checkUser(user, password) {
 
 /* GET control page. */
 router.get('/', function(req, res) {
-    res.render('control', {
-    });
+    res.render('control');
 });
 
 /* POST control page (submit). */

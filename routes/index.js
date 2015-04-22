@@ -45,14 +45,4 @@ router.get('/', function(req, res, next) {
     });
 });
 
-/* GET contact page. */
-router.get('/contact', function(req, res) {
-    res.render('contact');
-});
-
-/* POST contact page (submit). */
-router.post('/contact', function(req, res) {
-    res.render('contact', { name: req.param('name') });
-});
-
 module.exports = router;

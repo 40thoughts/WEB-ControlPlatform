@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="UTF-8">
-  <title>{% block title %}{% endblock %}Control Platform</title>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body {% block params %}{% endblock %}>
-<header class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Control Platform</a>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}Control Platform</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body {% block params %}{% endblock %}>
+        <header class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">Control Platform</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        {% include './include/nav.html' %}
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <section class="container">
+            <div class="page-header">
+                {% block header %}{% endblock %}
             </div>
-            <div class="collapse navbar-collapse">
-                {% include './include/nav.html' %}
-            </div>
-        </div>
-    </nav>
-</header>
-<section class="container">
-    <div class="page-header">
-        {% block header %}<h1>Example page header <small>Subtext for header</small></h1>{% endblock %}
-    </div>
 
-    {% block content %}{% endblock %}
-</section>
-<footer class="container">
-    <hr>
-    <p class="text-center"> Copyright © 2015 <strong><a href="https://github.com/40thoughts">40thoughts</href></strong></p>
-</footer>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-</body>
+            {% block content %}{% endblock %}
+        </section>
+        <footer class="container">
+            <hr>
+            <p class="text-center"> Copyright © 2015 <strong><a href="https://github.com/40thoughts">40thoughts</href></strong></p>
+        </footer>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    </body>
 </html>

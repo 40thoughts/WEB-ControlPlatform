@@ -92,10 +92,6 @@
     </div>
 </div>
 
-<input type="button" onmousedown="mousedownfunc('counter')" value="clickme" onmouseup="mouseupfunc('counter')" /><br/>
-<div id="counter">1</div>
-
-
 <script>
 var h = {{ h }};
 var m = {{ m }};
@@ -117,21 +113,6 @@ function serverClock() {
 function checkTime(i) {
     if (i.length < 2) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
-}
-
-
-
-var intervalId; // keep the ret val from setTimeout()
-function mousedownfunc(divid) {
-    intervalId = setInterval(runme, 500, divid);
-}
-
-function mouseupfunc() {
-    clearInterval(intervalId);
-}
-
-function runme(divid) {
-    document.getElementById(divid).innerHTML = parseFloat(document.getElementById(divid).innerHTML) + 1;
 }
 </script>
 
