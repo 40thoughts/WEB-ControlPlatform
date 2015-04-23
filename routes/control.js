@@ -25,7 +25,10 @@ function checkUser(user, password, req) {
 /* GET control page. */
 router.get('/', function(req, res) {
     var hostname = req.app.get('hostname');
-    if (req.session.connected == true) {
+    if (req.query.session == 'disconnect') {
+        req.session.destroy();
+    }
+    else if (req.session.connected == true) {
         var userStatus = 'connected';
         var user = req.session.user;
     }
