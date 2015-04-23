@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var exec = require("child_process").exec;
-var fs = require('fs');
 
 function my_exec(command, callback) {
     var proc = exec(command);
@@ -20,11 +19,11 @@ function my_exec(command, callback) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    var hostname = req.app.get('hostname');
     var today=new Date();
     var h=today.getHours();
     var m=today.getMinutes();
     var s=today.getSeconds();
-    var hostname=fs.readFile('/etc/hostname', 'utf8', function (err,data) { hostname=data; });
     var space=my_exec('df -h', function (stdout) {
         space=stdout;
     });

@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var swig = require('swig');
+var os = require('os');
+var hostname = os.hostname();
 
 var indexPage = require('./routes/index');
 var controlPage = require('./routes/control');
@@ -30,6 +32,8 @@ app.use(session({
     saveUninitialized: false
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.set('hostname', hostname);
 
 app.use('/', indexPage);
 app.use('/control', controlPage);

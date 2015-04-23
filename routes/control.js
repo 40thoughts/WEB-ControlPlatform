@@ -23,12 +23,14 @@ function checkUser(user, password, req) {
 
 /* GET control page. */
 router.get('/', function(req, res) {
-    res.render('control');
+    var hostname = req.app.get('hostname');
+    res.render('control', {hostname: hostname});
 });
 
 /* POST control page (submit). */
 router.post('/', function(req, res) {
-    var ip = req.connection.remoteAddress,
+    var hostname = req.app.get('hostname'),
+        ip = req.connection.remoteAddress,
         cmd = req.body.cmd,
         user = req.body.user,
         password = req.body.password,
@@ -51,6 +53,7 @@ router.post('/', function(req, res) {
     }
 
     res.render('control', {
+        hostname: hostname,
         userStatus: userStatus,
         warning: warning,
         cmd: cmd,
