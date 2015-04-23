@@ -16,8 +16,6 @@ function checkUser(user, password, req) {
         return "nopass";
     }
     else {
-        req.session.connected = true;
-        req.session.user = user;
         return "newconnect";
     }
 }
@@ -46,6 +44,8 @@ router.post('/', function(req, res) {
         warning;
 
     if (userStatus == "newconnect") {
+        req.session.connected = true;
+        req.session.user = user;
         warning = 'justconnected';
         userStatus = 'connected';
         console.log('New user from \x1b[42m' +ip+ '\x1b[0m successfully connected as : \x1b[32m' +user+ '\x1b[0m.');
@@ -58,6 +58,11 @@ router.post('/', function(req, res) {
     }
     else if (userStatus == "nopass") {
         console.log("User on \x1b[41m" +ip+ "\x1b[0m trying to connect as \x1b[31m" +user+ "\x1b[0m without password.");
+    }
+    else if (userStatus == "connected") {
+        if (typeof req.body.user === 'undefined') {
+            user = req.session.user;
+        }
     }
 
     res.render('control', {

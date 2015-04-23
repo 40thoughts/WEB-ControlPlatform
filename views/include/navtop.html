@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">{{ hostname }}</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/control" title="Control">Control</a></li>
+        </ul>
+
+        {% if userStatus == "connected" %}
+        <ul class="nav navbar-nav navbar-right">
+            <div class="btn-group navbar-btn" role="group" aria-label="Power Buttons">
+                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-lock"></span> Lock</button>
+                <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-refresh"></span> Reboot</button>
+                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span> Shutdown</button>
+                <a href="/control?session=disconnect" class="btn btn-default" aria-hidden="true"><span class="glyphicon glyphicon-log-out"></span>
+                   <span class="sr-only">(log out)</span>
+                </a>
+            </div>
+        </ul>
+        {% endif %}
+
+    </div>
+<nav>

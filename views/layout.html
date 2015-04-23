@@ -5,19 +5,14 @@
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}Control Platform</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body { padding-top: 30px; }
+            body { padding-bottom: 50px; }
+        </style>
     </head>
     <body {% block params %}{% endblock %}>
         <header>
-            <nav class="navbar navbar-default navbar-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="/">{{ hostname }}</a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        {% include './include/nav.html' %}
-                    </div>
-                </div>
-            </nav>
+            {% include './include/navtop.html' %}
         </header>
         <section class="container">
             <div class="page-header">
@@ -26,9 +21,8 @@
 
             {% block content %}{% endblock %}
         </section>
-        <footer class="container">
-            <hr>
-            <p class="text-center"> Copyright © 2015 <strong><a href="https://github.com/40thoughts">40thoughts</href></strong></p>
+        <footer>
+            {% include './include/navfooter.html' %}
         </footer>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
