@@ -1,8 +1,8 @@
 <ul class="nav navbar-nav">
     <li><a href="/control" title="Control">Control</a></li>
-<!--    <li><a href="/contact" title="Contact">Contact</a></li>     -->
 </ul>
 
+{% if userStatus == "connected" %}
 <ul class="nav navbar-nav navbar-right">
     <div class="btn-group navbar-btn" role="group" aria-label="Power Buttons">
         <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-lock"></span> Lock</button>
@@ -10,3 +10,4 @@
         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span>  Shutdown</button>
     </div>
 </ul>
+{% endif %}

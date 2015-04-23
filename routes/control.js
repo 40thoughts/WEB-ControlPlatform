@@ -31,22 +31,30 @@ router.post('/', function(req, res) {
     var ip = req.connection.remoteAddress,
         cmd = req.body.cmd,
         user = req.body.user,
-        password = req.body.password;
-    var userStatus = checkUser(user, password, req);
-    if (userStatus == "nothing") {
-        console.log("User on \x1b[31m" +ip+ "\x1b[0m trying to connect without password and username.");
+        password = req.body.password,
+        userStatus = checkUser(user, password, req),
+        warning;
+
+    if (userStatus == "newconnect") {
+        warning = 'justconnected';
+        userStatus = 'connected';
+        console.log('New user from \x1b[42m' +ip+ '\x1b[0m successfully connected as : \x1b[32m' +user+ '\x1b[0m.');
+    }
+    else if (userStatus == "nothing") {
+        console.log("User on \x1b[41m" +ip+ "\x1b[0m trying to connect without password and username.");
     }
     else if (userStatus == "nouser") {
-        console.log("User on \x1b[31m" +ip+ "\x1b[0m trying to connect without username.");
+        console.log("User on \x1b[41m" +ip+ "\x1b[0m trying to connect without username.");
     }
     else if (userStatus == "nopass") {
-        console.log(user+ " on \x1b[31m" +ip+ "\x1b[0m trying to connect without password.");
+        console.log("User on \x1b[41m" +ip+ "\x1b[0m trying to connect as \x1b[31m" +user+ "\x1b[0m without password.");
     }
+
     res.render('control', {
         userStatus: userStatus,
+        warning: warning,
         cmd: cmd,
-        user: user,
-        password: password
+        user: user
     });
 });
 

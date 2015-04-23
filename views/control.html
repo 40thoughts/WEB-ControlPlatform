@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+{% if userStatus == "connected" %}
 <div class="row">
     <div class="col-md-3">
         {% include './include/control/power.html' %}
@@ -17,7 +18,10 @@
         {% include './include/control/wifi.html' %}
     </div>
     <div class="col-md-9">
+{% endif %}
         {% include './include/control/terminal.html' %}
+{% if userStatus == "connected" %}
     </div>
 </div>
+{% endif %}
 {% endblock %}
