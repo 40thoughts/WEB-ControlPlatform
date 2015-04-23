@@ -17,6 +17,7 @@ function checkUser(user, password, req) {
     }
     else {
         req.session.connected = true;
+        req.session.user = user;
         return "newconnect";
     }
 }
@@ -24,7 +25,11 @@ function checkUser(user, password, req) {
 /* GET control page. */
 router.get('/', function(req, res) {
     var hostname = req.app.get('hostname');
-    res.render('control', {hostname: hostname});
+    if (req.session.connected == true) {
+        var userStatus = 'connected';
+        var user = req.session.user;
+    }
+    res.render('control', {hostname: hostname, userStatus: userStatus, user: user});
 });
 
 /* POST control page (submit). */

@@ -19,6 +19,9 @@ function my_exec(command, callback) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    if (req.session.connected == true) {
+        var userStatus = 'connected';
+    }
     var hostname = req.app.get('hostname');
     var today=new Date();
     var h=today.getHours();
@@ -41,7 +44,7 @@ router.get('/', function(req, res, next) {
     });
     my_exec('./scripts/index', function (stdout) {
         setTimeout(function() {
-            res.render('index', { h: h,m: m,s: s, hostname: hostname, space: space, nbUsers: nbUsers, ports: ports, interfaces: interfaces, devices: devices });
+            res.render('index', { h: h,m: m,s: s, hostname: hostname, space: space, nbUsers: nbUsers, ports: ports, interfaces: interfaces, devices: devices, userStatus: userStatus });
         }, 200);
     });
 });
