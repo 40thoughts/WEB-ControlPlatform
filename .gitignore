@@ -1,3 +1,4 @@
 node_modules
 views/include/index
 *.swp
+npm-debug.log
