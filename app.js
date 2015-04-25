@@ -10,6 +10,7 @@ var os = require('os');
 var hostname = os.hostname();
 
 var indexPage = require('./routes/index');
+var connectionPage = require('./routes/connection');
 var controlPage = require('./routes/control');
 
 var app = express();
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('hostname', hostname);
 
 app.use('/', indexPage);
+app.use('/connection', connectionPage);
 app.use('/control', controlPage);
 
 // catch 404 and forward to error handler

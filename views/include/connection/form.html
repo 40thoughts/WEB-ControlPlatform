@@ -1,0 +1,30 @@
+{% if connectionWarning %}
+<div class="alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  {% if connectionWarning == "nothing" %}
+  <strong>Warning !</strong> Please type in your login/password.
+  {% elseif connectionWarning == "nouser" %}
+  <strong>Warning !</strong> Login is required.
+  {% elseif connectionWarning == "nopass" %}
+  <strong>Warning !</strong> Password is required.
+  {% endif %}
+</div>
+{% endif %}
+
+{% if !connectionWarning %}
+<p>Please you have to connect first.</p>
+{% endif %}
+
+<form role="form" action="/connection" class="form-inline {% if userStatus == "nothing" %}has-error{% endif %}" method="post">
+  <div class="form-group {% if userStatus == "nouser" %}has-error{% endif %} has-feedback">
+    <label class="sr-only" for="login">Login</label>
+    <input type="text" class="form-control" name="user" id="login" {% if user %}value="{{ user }}"{% endif %} placeholder="Login">
+    {% if userStatus == "nouser" or userStatus == "nothing" %}<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>{% endif %}
+  </div>
+  <div class="form-group {% if userStatus == "nopass" %}has-error{% endif %} has-feedback">
+    <label class="sr-only" for="password">Password</label>
+    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+    {% if userStatus == "nopass" or userStatus == "nothing" %}<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>{% endif %}
+  </div>
+  <button type="submit" class="btn btn-default">Login</button>
+</form>
