@@ -8,7 +8,7 @@ function checkUser(user, password, req) {
     else if (!user && !password) {
         return "nothing";
     }
-    else if (!user) { 
+    else if (!user) {
         return "nouser";
     }
     else if (!password) {
@@ -62,7 +62,7 @@ router.post('/', function(req, res) {
     }
 
     if (req.session.connected == true) {
-        res.redirect('control');    
+        res.redirect('control');
     }
     else {
         res.render('connection', {
