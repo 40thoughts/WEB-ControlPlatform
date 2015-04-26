@@ -19,6 +19,15 @@
                 {% block header %}{% endblock %}
             </div>
 
+            {% if warningMessage %}
+                <div class="alert alert-{{ warningType }} alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {% if warningType == "success" %}
+                    <strong>Message : </strong>{{ warningMessage }}
+                    {% endif %}
+                </div>
+            {% endif %}
+
             {% block content %}{% endblock %}
         </section>
         <footer>

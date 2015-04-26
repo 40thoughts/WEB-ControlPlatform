@@ -36,13 +36,16 @@ router.post('/', function(req, res) {
     var hostname = req.app.get('hostname'),
         ip = req.connection.remoteAddress,
         user = req.body.user,
-        password = req.body.password;
+        password = req.body.password,
+        warning = req.body.warning;
 
     var userStatus = checkUser(user, password, req);
 
     if (userStatus == "newconnect") {
         req.session.connected = true;
         req.session.user = user;
+        req.session.warningMessage = "You are successfully connected !";
+        req.session.warningType = 'success';
         userStatus = 'connected';
         console.log('New user from \x1b[42m' +ip+ '\x1b[0m successfully connected as : \x1b[32m' +user+ '\x1b[0m.');
     }
